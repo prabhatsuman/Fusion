@@ -24,7 +24,7 @@ User = get_user_model()
 @api_view(['POST','DELETE'])
 def student_request_api(request):
     usertype=ExtraInfo.objects.get(user=request.user).user_type
-    if usertype == 'student' or usertype == 'faculty' or usertype == 'POST':
+    if usertype == 'student' or usertype == 'faculty' or usertype == 'staff':
         if 'ambulancerequest' in request.data and request.method=='POST':
             comp_id = ExtraInfo.objects.filter(user_type='compounder')
             request.data['user_id'] = get_object_or_404(User,username=request.user.username)
