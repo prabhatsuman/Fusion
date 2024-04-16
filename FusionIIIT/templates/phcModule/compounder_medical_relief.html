@@ -5,10 +5,7 @@
 <div class="ui pointing secondary menu">
     <a class="active item" data-tab="inbox">
         Inbox
-    </a>   
-    <a class="item" data-tab="outbox">
-        Outbox
-    </a>
+    </a>    
 </div>
 
 <div class="ui active tab" data-tab="inbox">
@@ -31,47 +28,52 @@
                 <td style="font-weight:bold;color:black;">
                       File
                 </td>               
+                <td style="font-weight:bold;color:black;">
+                      Status
+                </td>               
 
             </tr>
             </thead>
-
             <tbody>
-            {% for inbox in inbox_files %}
-            <tr>
-
-                <td style="white-space:nowrap;">                    
-                    {{inbox.uploader}}
-                </td>
-                <td style="white-space:nowrap;">                
-                           
-                    {{inbox.upload_date}}   
-    
-                </td>
-
-                <td style="white-space:nowrap;">
-                    {{ inbox.medical_relief.description}}       
-                   
-                </td>
-
-                <td>
-                    {% for mr in medicalrelief %}
-                        {% if mr.id == inbox.src_object_id %}
-                            {{mr.file}}
-                        {% endif %}
-                    {% endfor %}
-                </td>
+                {% for inbox in inbox_files %}
+                <tr>
                 
-
-                <td>
-
-                    <input type="button" onclick="rem({{inbox.id}})" id="{{inbox.id}}" name="Forward" value="Forward"class="ui blue button" />
-
-                </td>
-
-            </tr>
-            {% endfor %}
-
-            </tbody>
+                    <td style="white-space:nowrap;">
+                        {{ inbox.uploader }}
+                    </td>
+                    <td style="white-space:nowrap;">
+                        {{ inbox.upload_date }}
+                    </td>
+                
+                    <td style="white-space:nowrap;">
+                        {{ inbox.desc }}
+                    </td>
+                    <td style="white-space:nowrap;">
+                        <a href="{{ inbox.file }}" download>
+                            <i class="ui download icon right floated"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        {% if inbox.status1 %}
+                            Approved
+                        {% elif inbox.status %}
+                            Forwarded                  
+                        {% else %}
+                            Pending
+                        {% endif %}
+                    </td>
+                
+                    <td>
+                        {% if not inbox.status %}
+                            <input type="button" onclick="rem({{ inbox.id }})" id="{{ inbox.id }}" name="Forward" value="Forward" class="ui blue button" />
+                        {% endif %}
+                    </td>
+                
+                </tr>
+                {% endfor %}
+                </tbody>
+                
         </table>
 
             <script>
