@@ -42,14 +42,7 @@ class Migration(migrations.Migration):
                 ('phone', models.CharField(max_length=10)),
             ],
         ),
-        migrations.CreateModel(
-            name='medical_relief',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.CharField(max_length=200)),
-                ('file', models.FileField(upload_to='')),
-            ],
-        ),
+       
         migrations.CreateModel(
             name='Pathologist',
             fields=[
