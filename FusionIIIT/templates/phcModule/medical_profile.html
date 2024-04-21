@@ -81,131 +81,40 @@
         </div>
     </div>
 
-
     <div class="ui active tab" data-tab="med_profile">
-        <div id="med_profile" class="ui vertical segment" >
-
-            <table  border=1 class="ui very basic collapsing celled large sortable table"
-                  style="padding-left: 2.5%;padding-right: 2.5%;margin: auto;" >
-                <thead>
-                <tr>
-                    <td style="font-weight:bold;color:black; ">
-                        Sex
-                    </td>
-
-                    <td style="font-weight:bold;color:black;" >
-                        DOB
-                    </td>
-                    
-                    <td style="font-weight:bold;color:black;" >
-                        Blood Group
-                    </td>
-
-                    <td style="font-weight:bold;color:black;" >
-                        Height (in cm)
-                    </td>
-
-                    <td style="font-weight:bold;color:black;" >
-                        Weight (in kg)
-                    </td>
-                    {% comment %} <td style="font-weight:bold;color:black;">
-                        Details
-                    </td>
-                    <td style="font-weight:bold;color:black;">
-                        Test
-                    </td>
-                    <td style="font-weight:bold;color:black;">
-                        Report
-                    </td>
-
-
-                    <td style="font-weight:bold;color:black;">
-
-                      <table>
-
-                        <tr><td style="font-weight:bold;color:black;">Medicine</td><td>D</td><td>T</td></tr>
-
-                      </table>
-                    </td> {% endcomment %}
-
-                </tr>
-                </thead>
-                  
-                <tbody>
+        <div id="med_profile" class="ui vertical segment">
+    
+            <div class="ui middle aligned divided list">
                 {% for prof in medical_profile %}
-                <tr>
-                    {% comment %} <h1>1</h1> {% endcomment %}
-                    <td style="font-weight:bold;color:black;">
-                        <h4 class="ui image header">
-                             <img src="{% static 'globals/img/zlatan.jpg' %}" class="ui mini circular image">
-                        </h4>
-                              {% if prof.gender == 'M' %}
-                                <p>Male
-                                </p>
-                              {% endif %}
-                              {% if prof.gender == 'F' %}
-                                <p>Female
-                                </p>
-                              {% endif %}
-                              {% if prof.gender == 'O' %}
-                                <p>Other
-                                </p>
-                              {% endif %}
-                    </td>
-
-                    <td>
-                        {{prof.date_of_birth}}
-                    </td>
-
-                    <td>
-                        {{prof.blood_type}}
-                    </td>
-                    
-                    <td>
-                        {{prof.height}}
-                    </td>
-
-                    <td>
-                        {{prof.weight}}
-                    </td>
-
-                    
-                </tr>
-
+                <div class="item">
+                    <div class="content">
+                        <div class="header">
+                            {% if prof.gender == 'M' %}
+                                <img src="{% static 'globals/img/zlatan.jpg' %}" class="ui mini circular image">
+                                Male
+                            {% elif prof.gender == 'F' %}
+                                <img src="{% static 'globals/img/zlatan.jpg' %}" class="ui mini circular image">
+                                Female
+                            {% else %}
+                                <img src="{% static 'globals/img/zlatan.jpg' %}" class="ui mini circular image">
+                                Other
+                            {% endif %}
+                        </div>
+                        <div class="description">
+                            <p><strong>Date of Birth:</strong> {{ prof.date_of_birth }}</p>
+                            <p><strong>Blood Group:</strong> {{ prof.blood_type }}</p>
+                            <p><strong>Height (in cm):</strong> {{ prof.height }}</p>
+                            <p><strong>Weight (in kg):</strong> {{ prof.weight }}</p>
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
-                </tbody>
-            </table>
-
-          </div>
+            </div>
+    
         </div>
+    </div>
+    
 
-<script>
-            function rem(id){
-           
-			var dis = this;
-            var d = window.confirm('Are you sure, you want to delete the Request?');
-            if(d == false){
-                return;
-            }
-            $('#'+id).parent().parent().remove();
-                                             alert("Ambulance request cancelled");
-
-					$.ajax({
-                            type:'POST',
-                            url:'/healthcenter/student/',
-                            data: {'cancel_amb':id},
-
-                            beforeSend: function(xhr) {
-               xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-            },
-                            success: function(data){
-
-                                                    }
-                          });
-
-            
-      }
-      </script>
 
 
 {% endblock %}
