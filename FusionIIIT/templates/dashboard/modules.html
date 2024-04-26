@@ -1,15 +1,42 @@
 {% load static %}
 
+{% block css %}
+    <style>
+        .moduleAllContainer {
+            display: flex !important;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 1rem !important;
+        }
+
+        .moduleSpan {
+            margin: 0.25rem;
+            padding: 0.25rem;
+            width: 10rem;
+        }
+
+        .moduleSpan > a {
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            height: 9rem;
+            justify-content: space-evenly;
+        }
+
+        .tcenter {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% comment %} The Modules start here! {% endcomment %}
 {% block modules %}
-{% comment %}The Modules start here!{% endcomment %}
-<div class="stackable doubling ui internally celled grid">
-    <div class="column">
-        <div class="ui fluid card" style="padding-top: 12px; padding-bottom: 24px; max-width: 18vw;">
-            <a class="ui top attached black label">
-                <span class="ui inverted header">Modules</span>
-                <i class="setting icon right floated"></i>
-                <i class="chevron up icon right floated" id="toggleIcon" onclick="toggleContent()"></i>
-            </a>
+    <div class="ui fluid card moduleAllContainer">
+        <a class="ui top attached black label">
+            <span class="ui inverted header" style="padding-left: 2rem;">Modules</span>
+            <i class="setting icon right floated"></i>
+            <i class="chevron up icon right floated" id="toggleIcon" onclick="toggleContent()"></i>
+        </a>
 
             <div class="content modulesContent">
                 <div style="display: flex; flex-wrap: wrap;">
@@ -206,7 +233,7 @@
                     {% comment %}A single modules row ends here!{% endcomment %}
 
                     
-                        {% if request.user.extrainfo.user_type != "staff"   %}
+                        {% if request.user.extrainfo.user_type == "staff" or "faculty" or "student"  %}
                         <div style="width: calc(50% - 10px);
                         margin: 5px;
                         box-sizing: border-box;">
@@ -444,5 +471,6 @@
         </div>
     </div>
 </div>
+{% endblock %}
 {% comment %}The Modules End here!{% endcomment %}
 {% endblock %}
